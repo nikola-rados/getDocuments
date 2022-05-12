@@ -20,24 +20,30 @@ objects:
 
       target-email: ${FEEDBACK_TARGET_EMAIL}
       smtp-host: ${SMTP_SERVER_ADDRESS}
+      
+      ${JC_INTERFACE_USERNAME}: ${JC_INTERFACE_USERNAME}
+      ${JC_INTERFACE_PROD_PASSWORD}: ${JC_INTERFACE_PROD_PASSWORD}
+      ${JC_INTERFACE_TEST_PASSWORD}: ${JC_INTERFACE_TEST_PASSWORD}
+      ${JC_INTERFACE_DEV_PASSWORD}: ${JC_INTERFACE_DEV_PASSWORD}
 
-      ${BC_REG_DB_HOST_KEY_NAME}: ${BC_REG_DB_HOST}
-      ${BC_REG_DB_PORT_KEY_NAME}: ${BC_REG_DB_PORT}
-      ${BC_REG_DB_DATABASE_KEY_NAME}: ${BC_REG_DB_DATABASE}
-      ${BC_REG_DB_USER_KEY_NAME}: ${BC_REG_DB_USER}
-      ${BC_REG_DB_PASSWORD_KEY_NAME}: ${BC_REG_DB_PASSWORD}
+      ${WSGW_URL_PROD}: ${WSGW_URL_PROD}
+      ${WSGW_URL_TEST}: ${WSGW_URL_TEST}
+      ${WSGW_URL_DEV}: ${WSGW_URL_DEV}
+      ${CATS_URL_PROD}: ${CATS_URL_PROD}
+      ${CATS_URL_TEST}: ${CATS_URL_TEST}
+      ${CATS_URL_DEV}: ${CATS_URL_DEV}
 
-      ${EVENT_PROC_DB_HOST_KEY_NAME}: ${EVENT_PROC_DB_HOST}
-      ${EVENT_PROC_DB_PORT_KEY_NAME}: ${EVENT_PROC_DB_PORT}
-      ${EVENT_PROC_DB_DATABASE_KEY_NAME}: ${EVENT_PROC_DB_DATABASE}
-      ${EVENT_PROC_DB_USER_KEY_NAME}: ${EVENT_PROC_DB_USER}
-      ${EVENT_PROC_DB_PASSWORD_KEY_NAME}: ${EVENT_PROC_DB_PASSWORD}
+      ${REQUEST_AGENCY_IDENTIFIER_ID_PROD}: ${REQUEST_AGENCY_IDENTIFIER_ID_PROD}
+      ${REQUEST_AGENCY_IDENTIFIER_ID_TEST}: ${REQUEST_AGENCY_IDENTIFIER_ID_TEST}
+      ${REQUEST_AGENCY_IDENTIFIER_ID_DEV}: ${REQUEST_AGENCY_IDENTIFIER_ID_DEV}
+      ${REQUEST_PART_ID_PROD}: ${REQUEST_PART_ID_PROD}
+      ${REQUEST_PART_ID_TEST}: ${REQUEST_PART_ID_TEST}
+      ${REQUEST_PART_ID_DEV}: ${REQUEST_PART_ID_DEV}
+      ${PCSS_APPLICATION_CODE}: ${PCSS_APPLICATION_CODE}
+      ${SCV_APPLICATION_CODE}: ${SCV_APPLICATION_CODE}
 
-      ${ORGBOOK_DB_HOST_KEY_NAME}: ${ORGBOOK_DB_HOST}
-      ${ORGBOOK_DB_PORT_KEY_NAME}: ${ORGBOOK_DB_PORT}
-      ${ORGBOOK_DB_DATABASE_KEY_NAME}: ${ORGBOOK_DB_DATABASE}
-      ${ORGBOOK_DB_USER_KEY_NAME}: ${ORGBOOK_DB_USER}
-      ${ORGBOOK_DB_PASSWORD_KEY_NAME}: ${ORGBOOK_DB_PASSWORD}
+      ${TARGET_URL}: ${TARGET_URL}
+      ${COOKIE}: ${COOKIE}
     type: Opaque
 
   - kind: DeploymentConfig
@@ -95,90 +101,125 @@ objects:
               image: ""
               ports: []
               env:
+                - name: JC_INTERFACE_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}${SUFFIX}
+                      key: ${JC_INTERFACE_USERNAME}
 
-                - name: USE_CSV
-                  value: ${USE_CSV}
+                - name: JC_INTERFACE_PROD_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}${SUFFIX}
+                      key: ${JC_INTERFACE_PROD_PASSWORD}
 
-                - name: REQUEUE_WRONG_BN_CORPS
-                  value: ${REQUEUE_WRONG_BN_CORPS}
+                - name: JC_INTERFACE_TEST_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}${SUFFIX}
+                      key: ${JC_INTERFACE_TEST_PASSWORD}
 
-                - name: BC_REG_DB_HOST
+                - name: JC_INTERFACE_DEV_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${BC_REG_DB_HOST_KEY_NAME}
-                - name: BC_REG_DB_PORT
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${NAME}${SUFFIX}
-                      key: ${BC_REG_DB_PORT_KEY_NAME}
-                - name: BC_REG_DB_DATABASE
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${NAME}${SUFFIX}
-                      key: ${BC_REG_DB_DATABASE_KEY_NAME}
-                - name: BC_REG_DB_USER
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${NAME}${SUFFIX}
-                      key: ${BC_REG_DB_USER_KEY_NAME}
-                - name: BC_REG_DB_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${NAME}${SUFFIX}
-                      key: ${BC_REG_DB_PASSWORD_KEY_NAME}
+                      key: ${JC_INTERFACE_DEV_PASSWORD}
 
-                - name: EVENT_PROC_DB_HOST
+                - name: WSGW_URL_PROD
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${EVENT_PROC_DB_HOST_KEY_NAME}
-                - name: EVENT_PROC_DB_PORT
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${NAME}${SUFFIX}
-                      key: ${EVENT_PROC_DB_PORT_KEY_NAME}
-                - name: EVENT_PROC_DB_DATABASE
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${NAME}${SUFFIX}
-                      key: ${EVENT_PROC_DB_DATABASE_KEY_NAME}
-                - name: EVENT_PROC_DB_USER
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${NAME}${SUFFIX}
-                      key: ${EVENT_PROC_DB_USER_KEY_NAME}
-                - name: EVENT_PROC_DB_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: ${NAME}${SUFFIX}
-                      key: ${EVENT_PROC_DB_PASSWORD_KEY_NAME}
+                      key: ${WSGW_URL_PROD}
 
-                - name: ORGBOOK_DB_HOST
+                - name: WSGW_URL_TEST 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${ORGBOOK_DB_HOST_KEY_NAME}
-                - name: ORGBOOK_DB_PORT
+                      key: ${WSGW_URL_TEST}
+
+                - name: WSGW_URL_DEV 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${ORGBOOK_DB_PORT_KEY_NAME}
-                - name: ORGBOOK_DB_DATABASE
+                      key: ${WSGW_URL_DEV}
+
+                - name: CATS_URL_PROD 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${ORGBOOK_DB_DATABASE_KEY_NAME}
-                - name: ORGBOOK_DB_USER
+                      key: ${CATS_URL_PROD}
+
+                - name: CATS_URL_TEST 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${ORGBOOK_DB_USER_KEY_NAME}
-                - name: ORGBOOK_DB_PASSWORD
+                      key: ${CATS_URL_TEST}
+
+                - name: CATS_URL_DEV 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${ORGBOOK_DB_PASSWORD_KEY_NAME}
+                      key: ${CATS_URL_DEV}
+
+                - name: REQUEST_AGENCY_IDENTIFIER_ID_PROD 
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}${SUFFIX}
+                      key: ${REQUEST_AGENCY_IDENTIFIER_ID_PROD}
+
+                - name: REQUEST_AGENCY_IDENTIFIER_ID_TEST 
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}${SUFFIX}
+                      key: ${REQUEST_AGENCY_IDENTIFIER_ID_TEST}
+
+                - name: REQUEST_AGENCY_IDENTIFIER_ID_DEV 
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}${SUFFIX}
+                      key: ${REQUEST_AGENCY_IDENTIFIER_ID_DEV}
+
+                - name: REQUEST_PART_ID_PROD 
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}${SUFFIX}
+                      key: ${REQUEST_PART_ID_PROD}
+
+                - name: REQUEST_PART_ID_TEST 
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}${SUFFIX}
+                      key: ${REQUEST_PART_ID_TEST}
+
+                - name: REQUEST_PART_ID_DEV 
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}${SUFFIX}
+                      key: ${REQUEST_PART_ID_DEV}
+
+                - name: PCSS_APPLICATION_CODE 
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}${SUFFIX}
+                      key: ${PCSS_APPLICATION_CODE}
+                  
+                - name: SCV_APPLICATION_CODE 
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}${SUFFIX}
+                      key: ${SCV_APPLICATION_CODE}
+
+                - name: TARGET_URL 
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}${SUFFIX}
+                      key: ${TARGET_URL}
+
+                - name: COOKIE 
+                  valueFrom:
+                    secretKeyRef:
+                      name: ${NAME}${SUFFIX}
+                      key: ${COOKIE}
 
                 - name: WEBHOOK_URL
                   valueFrom:
@@ -218,12 +259,12 @@ parameters:
     displayName: Name
     description: The name assigned to all of the resources defined in this template.
     required: true
-    value: audit
+    value: test
   - name: ROLE
     displayName: Role
     description: Role
     required: true
-    value: audit
+    value: test
   - name: SUFFIX
     displayName: Suffix
     description: A name suffix used for all objects
@@ -233,17 +274,17 @@ parameters:
     displayName: App Name
     description: Used to group components together in the OpenShift console.
     required: true
-    value: Audit
+    value: Test
   - name: APP_GROUP
     displayName: App Group
     description: The name assigned to all of the deployments in this project.
     required: true
-    value: Audit
+    value: Test
   - name: SOURCE_IMAGE_NAME
     displayName: Source Image Name
     description: The name of the image to use for this resource.
     required: true
-    value: audit
+    value: test
   - name: IMAGE_NAMESPACE
     displayName: Image Namespace
     description: The namespace of the OpenShift project containing the imagestream for the application.
@@ -267,161 +308,125 @@ parameters:
     required: true
     value: "false"
 
-  - name: BC_REG_DB_HOST_KEY_NAME
-    displayName: BC_REG_DB_HOST_KEY_NAME
-    description: BC_REG_DB_HOST_KEY_NAME
+  - name: JC_INTERFACE_USERNAME
+    displayName: JC_INTERFACE_USERNAME
+    description: JC_INTERFACE_USERNAME
     required: true
-    value: bc-reg-db-host
-  - name: BC_REG_DB_PORT_KEY_NAME
-    displayName: BC_REG_DB_PORT_KEY_NAME
-    description: BC_REG_DB_PORT_KEY_NAME
-    required: true
-    value: bc-reg-db-port
-  - name: BC_REG_DB_DATABASE_KEY_NAME
-    displayName: BC_REG_DB_DATABASE_KEY_NAME
-    description: BC_REG_DB_DATABASE_KEY_NAME
-    required: true
-    value: bc-reg-db-name
-  - name: BC_REG_DB_USER_KEY_NAME
-    displayName: BC_REG_DB_USER_KEY_NAME
-    description: BC_REG_DB_USER_KEY_NAME
-    required: true
-    value: bc-reg-db-user
-  - name: BC_REG_DB_PASSWORD_KEY_NAME
-    displayName: BC_REG_DB_PASSWORD_KEY_NAME
-    description: BC_REG_DB_PASSWORD_KEY_NAME
-    required: true
-    value: bc-reg-db-password
+    value: jc-interface-username
 
-  - name: EVENT_PROC_DB_HOST_KEY_NAME
-    displayName: EVENT_PROC_DB_HOST_KEY_NAME
-    description: EVENT_PROC_DB_HOST_KEY_NAME
+  - name: JC_INTERFACE_PROD_PASSWORD
+    displayName: JC_INTERFACE_PROD_PASSWORD
+    description: JC_INTERFACE_PROD_PASSWORD
     required: true
-    value: event-proc-db-host
-  - name: EVENT_PROC_DB_PORT_KEY_NAME
-    displayName: EVENT_PROC_DB_PORT_KEY_NAME
-    description: EVENT_PROC_DB_PORT_KEY_NAME
-    required: true
-    value: event-proc-db-port
-  - name: EVENT_PROC_DB_DATABASE_KEY_NAME
-    displayName: EVENT_PROC_DB_DATABASE_KEY_NAME
-    description: EVENT_PROC_DB_DATABASE_KEY_NAME
-    required: true
-    value: event-proc-db-name
-  - name: EVENT_PROC_DB_USER_KEY_NAME
-    displayName: EVENT_PROC_DB_USER_KEY_NAME
-    description: EVENT_PROC_DB_USER_KEY_NAME
-    required: true
-    value: event-proc-db-user
-  - name: EVENT_PROC_DB_PASSWORD_KEY_NAME
-    displayName: EVENT_PROC_DB_PASSWORD_KEY_NAME
-    description: EVENT_PROC_DB_PASSWORD_KEY_NAME
-    required: true
-    value: event-proc-db-password
+    value: jc-interface-prod-password
 
-  - name: ORGBOOK_DB_HOST_KEY_NAME
-    displayName: ORGBOOK_DB_HOST_KEY_NAME
-    description: ORGBOOK_DB_HOST_KEY_NAME
+  - name: JC_INTERFACE_TEST_PASSWORD
+    displayName: JC_INTERFACE_TEST_PASSWORD
+    description: JC_INTERFACE_TEST_PASSWORD
     required: true
-    value: orgbook-db-host
-  - name: ORGBOOK_DB_PORT_KEY_NAME
-    displayName: ORGBOOK_DB_PORT_KEY_NAME
-    description: ORGBOOK_DB_PORT_KEY_NAME
-    required: true
-    value: orgbook-db-port
-  - name: ORGBOOK_DB_DATABASE_KEY_NAME
-    displayName: ORGBOOK_DB_DATABASE_KEY_NAME
-    description: ORGBOOK_DB_DATABASE_KEY_NAME
-    required: true
-    value: orgbook-db-name
-  - name: ORGBOOK_DB_USER_KEY_NAME
-    displayName: ORGBOOK_DB_USER_KEY_NAME
-    description: ORGBOOK_DB_USER_KEY_NAME
-    required: true
-    value: orgbook-db-user
-  - name: ORGBOOK_DB_PASSWORD_KEY_NAME
-    displayName: ORGBOOK_DB_PASSWORD_KEY_NAME
-    description: ORGBOOK_DB_PASSWORD_KEY_NAME
-    required: true
-    value: orgbook-db-password
+    value: jc-interface-test-password
 
-  - name: BC_REG_DB_HOST
-    displayName: BC_REG_DB_HOST
-    description: BC_REG_DB_HOST
+  - name: JC_INTERFACE_DEV_PASSWORD
+    displayName: JC_INTERFACE_DEV_PASSWORD
+    description: JC_INTERFACE_DEV_PASSWORD
     required: true
-    value:
-  - name: BC_REG_DB_PORT
-    displayName: BC_REG_DB_PORT
-    description: BC_REG_DB_PORT
-    required: true
-    value: "5432"
-  - name: BC_REG_DB_DATABASE
-    displayName: BC_REG_DB_DATABASE
-    description: BC_REG_DB_DATABASE
-    required: true
-    value: BC_REGISTRIES
-  - name: BC_REG_DB_USER
-    displayName: BC_REG_DB_USER
-    description: BC_REG_DB_USER
-    required: true
-    value:
-  - name: BC_REG_DB_PASSWORD
-    displayName: BC_REG_DB_PASSWORD
-    description: BC_REG_DB_PASSWORD
-    required: true
-    value:
+    value: jc-interface-dev-password
 
-  - name: EVENT_PROC_DB_HOST
-    displayName: EVENT_PROC_DB_HOST
-    description: EVENT_PROC_DB_HOST
+  - name: WSGW_URL_PROD
+    displayName: WSGW_URL_PROD
+    description: WSGW_URL_PROD
     required: true
-    value:
-  - name: EVENT_PROC_DB_PORT
-    displayName: EVENT_PROC_DB_PORT
-    description: EVENT_PROC_DB_PORT
-    required: true
-    value: "5432"
-  - name: EVENT_PROC_DB_DATABASE
-    displayName: EVENT_PROC_DB_DATABASE
-    description: EVENT_PROC_DB_DATABASE
-    required: true
-    value: bc_reg_db
-  - name: EVENT_PROC_DB_USER
-    displayName: EVENT_PROC_DB_USER
-    description: EVENT_PROC_DB_USER
-    required: true
-    value:
-  - name: EVENT_PROC_DB_PASSWORD
-    displayName: EVENT_PROC_DB_PASSWORD
-    description: EVENT_PROC_DB_PASSWORD
-    required: true
-    value:
+    value: wsgw-url-prod
 
-  - name: ORGBOOK_DB_HOST
-    displayName: ORGBOOK_DB_HOST
-    description: ORGBOOK_DB_HOST
+  - name: WSGW_URL_TEST
+    displayName: WSGW_URL_TEST
+    description: WSGW_URL_TEST
     required: true
-    value:
-  - name: ORGBOOK_DB_PORT
-    displayName: ORGBOOK_DB_PORT
-    description: ORGBOOK_DB_PORT
+    value: wsgw-url-test
+
+  - name: WSGW_URL_DEV
+    displayName: WSGW_URL_DEV
+    description: WSGW_URL_DEV
     required: true
-    value: "5432"
-  - name: ORGBOOK_DB_DATABASE
-    displayName: ORGBOOK_DB_DATABASE
-    description: ORGBOOK_DB_DATABASE
+    value: wsgw-url-dev
+
+  - name: CATS_URL_PROD
+    displayName: CATS_URL_PROD
+    description: CATS_URL_PROD
     required: true
-    value: aries-vcr
-  - name: ORGBOOK_DB_USER
-    displayName: ORGBOOK_DB_USER
-    description: ORGBOOK_DB_USER
+    value: cats-url-prod
+
+  - name: CATS_URL_TEST
+    displayName: CATS_URL_TEST
+    description: CATS_URL_TEST
     required: true
-    value:
-  - name: ORGBOOK_DB_PASSWORD
-    displayName: ORGBOOK_DB_PASSWORD
-    description: ORGBOOK_DB_PASSWORD
+    value: cats-url-test
+
+  - name: CATS_URL_DEV
+    displayName: CATS_URL_DEV
+    description: CATS_URL_DEV
     required: true
-    value:
+    value: cats-url-dev
+
+  - name: REQUEST_AGENCY_IDENTIFIER_ID_PROD
+    displayName: REQUEST_AGENCY_IDENTIFIER_ID_PROD
+    description: REQUEST_AGENCY_IDENTIFIER_ID_PROD
+    required: true
+    value: request-agency-identifier-id-prod
+
+  - name: REQUEST_AGENCY_IDENTIFIER_ID_TEST
+    displayName: REQUEST_AGENCY_IDENTIFIER_ID_TEST
+    description: REQUEST_AGENCY_IDENTIFIER_ID_TEST
+    required: true
+    value: request-agency-identifier-id-test
+
+  - name: REQUEST_AGENCY_IDENTIFIER_ID_DEV
+    displayName: REQUEST_AGENCY_IDENTIFIER_ID_DEV
+    description: REQUEST_AGENCY_IDENTIFIER_ID_DEV
+    required: true
+    value: request-agency-identifier-id-dev
+
+  - name: REQUEST_PART_ID_PROD
+    displayName: REQUEST_PART_ID_PROD
+    description: REQUEST_PART_ID_PROD
+    required: true
+    value: requst-part-id-prod
+
+  - name: REQUEST_PART_ID_TEST
+    displayName: REQUEST_PART_ID_TEST
+    description: REQUEST_PART_ID_TEST
+    required: true
+    value: request-part-id-test
+
+  - name: REQUEST_PART_ID_DEV
+    displayName: REQUEST_PART_ID_DEV
+    description: REQUEST_PART_ID_DEV
+    required: true
+    value: request-part-id-dev
+
+  - name: PCSS_APPLICATION_CODE
+    displayName: PCSS_APPLICATION_CODE
+    description: PCSS_APPLICATION_CODE
+    required: true
+    value: pcss-application-code
+
+  - name: SCV_APPLICATION_CODE
+    displayName: SCV_APPLICATION_CODE
+    description: SCV_APPLICATION_CODE
+    required: true
+    value: scv-application-code
+
+  - name: TARGET_URL
+    displayName: TARGET_URL
+    description: TARGET_URL
+    required: true
+    value: target-url
+
+  - name: COOKIE
+    displayName: COOKIE
+    description: COOKIE
+    required: true
+    value: cookie
 
   - name: WEBHOOK_URL
     displayName: Webhook URL
@@ -460,12 +465,12 @@ parameters:
     displayName: Config File Name
     description: The name of the configuration file.
     required: true
-    value: audit.conf
+    value: test.conf
   - name: CONFIG_MAP_NAME
     displayName: Config Map Name
     description: The name of the configuration map.
     required: true
-    value: audit-conf
+    value: test-conf
   - name: CONFIG_MOUNT_PATH
     displayName: Config Mount Path
     description: The path to use to mount the config file.

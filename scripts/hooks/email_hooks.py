@@ -20,7 +20,7 @@ def email_support(payload):
     subject = "BC Reg Audit: {}".format(payload["friendlyProjectName"])
 
     if server_addr and recip_email:
-        body = "Nightly audit report for {}\n".format(payload["friendlyProjectName"])
+        body = "Nightly doctest report for {}\n".format(payload["friendlyProjectName"])
         body = "{}Status Code: {}\n\n".format(body, payload["statusCode"])
         body = "{}{}".format(body, payload["message"])
         msg = MIMEText(body, "plain")
