@@ -21,29 +21,29 @@ objects:
       target-email: ${FEEDBACK_TARGET_EMAIL}
       smtp-host: ${SMTP_SERVER_ADDRESS}
       
-      ${JC_INTERFACE_USERNAME}: ${JC_INTERFACE_USERNAME}
-      ${JC_INTERFACE_PROD_PASSWORD}: ${JC_INTERFACE_PROD_PASSWORD}
-      ${JC_INTERFACE_TEST_PASSWORD}: ${JC_INTERFACE_TEST_PASSWORD}
-      ${JC_INTERFACE_DEV_PASSWORD}: ${JC_INTERFACE_DEV_PASSWORD}
+      ${JC_INTERFACE_USERNAME_KEY_NAME}: ${JC_INTERFACE_USERNAME}
+      ${JC_INTERFACE_PROD_PASSWORD_KEY_NAME}: ${JC_INTERFACE_PROD_PASSWORD}
+      ${JC_INTERFACE_TEST_PASSWORD_KEY_NAME}: ${JC_INTERFACE_TEST_PASSWORD}
+      ${JC_INTERFACE_DEV_PASSWORD_KEY_NAME}: ${JC_INTERFACE_DEV_PASSWORD}
 
-      ${WSGW_URL_PROD}: ${WSGW_URL_PROD}
-      ${WSGW_URL_TEST}: ${WSGW_URL_TEST}
-      ${WSGW_URL_DEV}: ${WSGW_URL_DEV}
-      ${CATS_URL_PROD}: ${CATS_URL_PROD}
-      ${CATS_URL_TEST}: ${CATS_URL_TEST}
-      ${CATS_URL_DEV}: ${CATS_URL_DEV}
+      ${WSGW_URL_PROD_KEY_NAME}: ${WSGW_URL_PROD}
+      ${WSGW_URL_TEST_KEY_NAME}: ${WSGW_URL_TEST}
+      ${WSGW_URL_DEV_KEY_NAME}: ${WSGW_URL_DEV}
+      ${CATS_URL_PROD_KEY_NAME}: ${CATS_URL_PROD}
+      ${CATS_URL_TEST_KEY_NAME}: ${CATS_URL_TEST}
+      ${CATS_URL_DEV_KEY_NAME}: ${CATS_URL_DEV}
 
-      ${REQUEST_AGENCY_IDENTIFIER_ID_PROD}: ${REQUEST_AGENCY_IDENTIFIER_ID_PROD}
-      ${REQUEST_AGENCY_IDENTIFIER_ID_TEST}: ${REQUEST_AGENCY_IDENTIFIER_ID_TEST}
-      ${REQUEST_AGENCY_IDENTIFIER_ID_DEV}: ${REQUEST_AGENCY_IDENTIFIER_ID_DEV}
-      ${REQUEST_PART_ID_PROD}: ${REQUEST_PART_ID_PROD}
-      ${REQUEST_PART_ID_TEST}: ${REQUEST_PART_ID_TEST}
-      ${REQUEST_PART_ID_DEV}: ${REQUEST_PART_ID_DEV}
-      ${PCSS_APPLICATION_CODE}: ${PCSS_APPLICATION_CODE}
-      ${SCV_APPLICATION_CODE}: ${SCV_APPLICATION_CODE}
+      ${REQUEST_AGENCY_IDENTIFIER_ID_PROD_KEY_NAME}: ${REQUEST_AGENCY_IDENTIFIER_ID_PROD}
+      ${REQUEST_AGENCY_IDENTIFIER_ID_TEST_KEY_NAME}: ${REQUEST_AGENCY_IDENTIFIER_ID_TEST}
+      ${REQUEST_AGENCY_IDENTIFIER_ID_DEV_KEY_NAME}: ${REQUEST_AGENCY_IDENTIFIER_ID_DEV}
+      ${REQUEST_PART_ID_PROD_KEY_NAME}: ${REQUEST_PART_ID_PROD}
+      ${REQUEST_PART_ID_TEST_KEY_NAME}: ${REQUEST_PART_ID_TEST}
+      ${REQUEST_PART_ID_DEV_KEY_NAME}: ${REQUEST_PART_ID_DEV}
+      ${PCSS_APPLICATION_CODE_KEY_NAME}: ${PCSS_APPLICATION_CODE}
+      ${SCV_APPLICATION_CODE_KEY_NAME}: ${SCV_APPLICATION_CODE}
 
-      ${TARGET_URL}: ${TARGET_URL}
-      ${COOKIE}: ${COOKIE}
+      ${TARGET_URL_KEY_NAME}: ${TARGET_URL}
+      ${COOKIE_KEY_NAME}: ${COOKIE}
     type: Opaque
 
   - kind: DeploymentConfig
@@ -105,121 +105,121 @@ objects:
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${JC_INTERFACE_USERNAME}
+                      key: ${JC_INTERFACE_USERNAME_KEY_NAME}
 
                 - name: JC_INTERFACE_PROD_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${JC_INTERFACE_PROD_PASSWORD}
+                      key: ${JC_INTERFACE_PROD_PASSWORD_KEY_NAME}
 
                 - name: JC_INTERFACE_TEST_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${JC_INTERFACE_TEST_PASSWORD}
+                      key: ${JC_INTERFACE_TEST_PASSWORD_KEY_NAME}
 
                 - name: JC_INTERFACE_DEV_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${JC_INTERFACE_DEV_PASSWORD}
+                      key: ${JC_INTERFACE_DEV_PASSWORD_KEY_NAME}
 
                 - name: WSGW_URL_PROD
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${WSGW_URL_PROD}
+                      key: ${WSGW_URL_PROD_KEY_NAME}
 
                 - name: WSGW_URL_TEST 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${WSGW_URL_TEST}
+                      key: ${WSGW_URL_TEST_KEY_NAME}
 
                 - name: WSGW_URL_DEV 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${WSGW_URL_DEV}
+                      key: ${WSGW_URL_DEV_KEY_NAME}
 
                 - name: CATS_URL_PROD 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${CATS_URL_PROD}
+                      key: ${CATS_URL_PROD_KEY_NAME}
 
                 - name: CATS_URL_TEST 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${CATS_URL_TEST}
+                      key: ${CATS_URL_TEST_KEY_NAME}
 
                 - name: CATS_URL_DEV 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${CATS_URL_DEV}
+                      key: ${CATS_URL_DEV_KEY_NAME}
 
                 - name: REQUEST_AGENCY_IDENTIFIER_ID_PROD 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${REQUEST_AGENCY_IDENTIFIER_ID_PROD}
+                      key: ${REQUEST_AGENCY_IDENTIFIER_ID_PROD_KEY_NAME}
 
                 - name: REQUEST_AGENCY_IDENTIFIER_ID_TEST 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${REQUEST_AGENCY_IDENTIFIER_ID_TEST}
+                      key: ${REQUEST_AGENCY_IDENTIFIER_ID_TEST_KEY_NAME}
 
                 - name: REQUEST_AGENCY_IDENTIFIER_ID_DEV 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${REQUEST_AGENCY_IDENTIFIER_ID_DEV}
+                      key: ${REQUEST_AGENCY_IDENTIFIER_ID_DEV_KEY_NAME}
 
                 - name: REQUEST_PART_ID_PROD 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${REQUEST_PART_ID_PROD}
+                      key: ${REQUEST_PART_ID_PROD_KEY_NAME}
 
                 - name: REQUEST_PART_ID_TEST 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${REQUEST_PART_ID_TEST}
+                      key: ${REQUEST_PART_ID_TEST_KEY_NAME}
 
                 - name: REQUEST_PART_ID_DEV 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${REQUEST_PART_ID_DEV}
+                      key: ${REQUEST_PART_ID_DEV_KEY_NAME}
 
                 - name: PCSS_APPLICATION_CODE 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${PCSS_APPLICATION_CODE}
+                      key: ${PCSS_APPLICATION_CODE_KEY_NAME}
                   
                 - name: SCV_APPLICATION_CODE 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${SCV_APPLICATION_CODE}
+                      key: ${SCV_APPLICATION_CODE_KEY_NAME}
 
                 - name: TARGET_URL 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${TARGET_URL}
+                      key: ${TARGET_URL_KEY_NAME}
 
                 - name: COOKIE 
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${COOKIE}
+                      key: ${COOKIE_KEY_NAME}
 
                 - name: WEBHOOK_URL
                   valueFrom:
