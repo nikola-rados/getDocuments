@@ -25,10 +25,10 @@ usage () {
       Examples;
       - Build everything:
         $0 -e tools build
-      - Build the audit image only:
-        $0 -e tools build audit
+      - Build the doctest image only:
+        $0 -e tools build doctest
       Images:
-      - audit
+      - doctest
 
     tag <sourceTag/> <destinationTag/>
       - Tags all of the application images.
@@ -118,7 +118,7 @@ fi
 # -----------------------------------------------------------------------------------------------------------------
 function cleanEnv() {
   printAndAskToContinue "If you contiune all of the application resources will be perminently deleted from $(getProjectName)."
-  oc -n $(getProjectName) delete all,pvc,secret,networkpolicies -l app=Audit
+  oc -n $(getProjectName) delete all,pvc,secret,networkpolicies -l app=DocTest
 }
 
 function functionExists() {
@@ -146,15 +146,15 @@ function build-and-tag() {
 }
 
 function build-all() {
- build-audit
+ build-doctest
 }
 
-function build-audit() {
+function build-doctest() {
   _namespace=$(getProjectName)
   echo -e "\n\n===================================================================================================="
-  echo -e "Building the 'audit' image via binary build ..."
+  echo -e "Building the 'doctest' image via binary build ..."
   echo -e "----------------------------------------------------------------------------------------------------"
-  oc -n ${_namespace} start-build audit --follow=true --from-dir=.. --no-cache
+  oc -n ${_namespace} start-build doctest --follow=true --from-dir=.. --no-cache
   echo -e "===================================================================================================="
 }
 
@@ -169,7 +169,7 @@ function tag()
       exit 1
     fi
 
-    images="audit"
+    images="doctest"
     for image in ${images}; do
       # Tag images ...
       echo -e "\nTagging ${image}:${_sourceTag} as ${image}:${_destTag} ..."

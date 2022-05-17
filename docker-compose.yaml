@@ -4,7 +4,7 @@ networks:
   main:
 
 services:
-  audit:
+  doctest:
     build:
       context: .
       dockerfile: ./docker/Dockerfile

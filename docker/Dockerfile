@@ -16,7 +16,7 @@ ARG GOCROND_VERSION=21.5.0
 ADD https://github.com/$SOURCE_REPO/go-crond/releases/download/$GOCROND_VERSION/go-crond-64-linux /usr/bin/go-crond
 
 COPY ./docker/run.sh .
-COPY ./docker/audit.conf .
+COPY ./docker/doctest.conf .
 COPY ./scripts ./scripts
 RUN cd $HOME/scripts && pip install -r requirements.txt
 

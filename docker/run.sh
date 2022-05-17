@@ -1,6 +1,6 @@
 #!/bin/bash
 
-AUDIT_CONF=${AUDIT_CONF:-./audit.conf}
+AUDIT_CONF=${AUDIT_CONF:-./doctest.conf}
 
 function echoBlue (){
   _msg="${@}"
@@ -72,7 +72,7 @@ function shutDown(){
 }
 
 function startCron(){
-  logInfo "Starting audit server in cron mode ..."
+  logInfo "Starting doctest server in cron mode ..."
   echoBlue "Starting go-crond as a background task ...\n"
   CRON_CMD="go-crond -v --default-user=${UID} --working-directory=$(pwd) --allow-unprivileged ${AUDIT_CONF}"
   exec ${CRON_CMD} &
