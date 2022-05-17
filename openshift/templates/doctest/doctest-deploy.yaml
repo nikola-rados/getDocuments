@@ -21,29 +21,29 @@ objects:
       target-email: ${FEEDBACK_TARGET_EMAIL}
       smtp-host: ${SMTP_SERVER_ADDRESS}
       
-      ${JC_INTERFACE_USERNAME_KEY_NAME}: ${JC_INTERFACE_USERNAME}
-      ${JC_INTERFACE_PROD_PASSWORD_KEY_NAME}: ${JC_INTERFACE_PROD_PASSWORD}
-      ${JC_INTERFACE_TEST_PASSWORD_KEY_NAME}: ${JC_INTERFACE_TEST_PASSWORD}
-      ${JC_INTERFACE_DEV_PASSWORD_KEY_NAME}: ${JC_INTERFACE_DEV_PASSWORD}
+      jc-interface-username: ${JC_INTERFACE_USERNAME}
+      jc-interace-prod-password: ${JC_INTERFACE_PROD_PASSWORD}
+      jc-interface-test-password: ${JC_INTERFACE_TEST_PASSWORD}
+      jc-interface-dev-password: ${JC_INTERFACE_DEV_PASSWORD}
 
-      ${WSGW_URL_PROD_KEY_NAME}: ${WSGW_URL_PROD}
-      ${WSGW_URL_TEST_KEY_NAME}: ${WSGW_URL_TEST}
-      ${WSGW_URL_DEV_KEY_NAME}: ${WSGW_URL_DEV}
-      ${CATS_URL_PROD_KEY_NAME}: ${CATS_URL_PROD}
-      ${CATS_URL_TEST_KEY_NAME}: ${CATS_URL_TEST}
-      ${CATS_URL_DEV_KEY_NAME}: ${CATS_URL_DEV}
+      wsgw-url-prod: ${WSGW_URL_PROD}
+      wsgw-url-test: ${WSGW_URL_TEST}
+      wsgw-url-dev: ${WSGW_URL_DEV}
+      cats-url-prod: ${CATS_URL_PROD}
+      cats-url-test: ${CATS_URL_TEST}
+      cats-url-dev: ${CATS_URL_DEV}
 
-      ${REQUEST_AGENCY_IDENTIFIER_ID_PROD_KEY_NAME}: ${REQUEST_AGENCY_IDENTIFIER_ID_PROD}
-      ${REQUEST_AGENCY_IDENTIFIER_ID_TEST_KEY_NAME}: ${REQUEST_AGENCY_IDENTIFIER_ID_TEST}
-      ${REQUEST_AGENCY_IDENTIFIER_ID_DEV_KEY_NAME}: ${REQUEST_AGENCY_IDENTIFIER_ID_DEV}
-      ${REQUEST_PART_ID_PROD_KEY_NAME}: ${REQUEST_PART_ID_PROD}
-      ${REQUEST_PART_ID_TEST_KEY_NAME}: ${REQUEST_PART_ID_TEST}
-      ${REQUEST_PART_ID_DEV_KEY_NAME}: ${REQUEST_PART_ID_DEV}
-      ${PCSS_APPLICATION_CODE_KEY_NAME}: ${PCSS_APPLICATION_CODE}
-      ${SCV_APPLICATION_CODE_KEY_NAME}: ${SCV_APPLICATION_CODE}
+      request-agency-identifier-id-prod: ${REQUEST_AGENCY_IDENTIFIER_ID_PROD}
+      request-agency-identifier-id-test: ${REQUEST_AGENCY_IDENTIFIER_ID_TEST}
+      request-agency-identifier-id-dev: ${REQUEST_AGENCY_IDENTIFIER_ID_DEV}
+      request-part-id-prod: ${REQUEST_PART_ID_PROD}
+      request-part-id-test: ${REQUEST_PART_ID_TEST}
+      request-part-id-dev: ${REQUEST_PART_ID_DEV}
+      pcss-application-code: ${PCSS_APPLICATION_CODE}
+      scv-application-code: ${SCV_APPLICATION_CODE}
 
-      ${TARGET_URL_KEY_NAME}: ${TARGET_URL}
-      ${COOKIE_KEY_NAME}: ${COOKIE}
+      target-url: ${TARGET_URL}
+      cookie: ${COOKIE}
     type: Opaque
 
   - kind: DeploymentConfig
@@ -105,121 +105,121 @@ objects:
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${JC_INTERFACE_USERNAME_KEY_NAME}
+                      key: jc-interface-username
 
                 - name: JC_INTERFACE_PROD_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${JC_INTERFACE_PROD_PASSWORD_KEY_NAME}
+                      key: jc-interface-prod-password
 
                 - name: JC_INTERFACE_TEST_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${JC_INTERFACE_TEST_PASSWORD_KEY_NAME}
+                      key: jc-interface-test-password
 
                 - name: JC_INTERFACE_DEV_PASSWORD
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${JC_INTERFACE_DEV_PASSWORD_KEY_NAME}
+                      key: jc-interface-dev-password
 
                 - name: WSGW_URL_PROD
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${WSGW_URL_PROD_KEY_NAME}
+                      key: wsgw-url-prod
 
-                - name: WSGW_URL_TEST 
+                - name: WSGW_URL_TEST
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${WSGW_URL_TEST_KEY_NAME}
+                      key: wsgw-url-test
 
-                - name: WSGW_URL_DEV 
+                - name: WSGW_URL_DEV
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${WSGW_URL_DEV_KEY_NAME}
+                      key: wsgw-url-dev
 
-                - name: CATS_URL_PROD 
+                - name: CATS_URL_PROD
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${CATS_URL_PROD_KEY_NAME}
+                      key: cats-url-prod
 
-                - name: CATS_URL_TEST 
+                - name: CATS_URL_TEST
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${CATS_URL_TEST_KEY_NAME}
+                      key: cats-url-test
 
-                - name: CATS_URL_DEV 
+                - name: CATS_URL_DEV
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${CATS_URL_DEV_KEY_NAME}
+                      key: cats-url-dev
 
-                - name: REQUEST_AGENCY_IDENTIFIER_ID_PROD 
+                - name: REQUEST_AGENCY_IDENTIFIER_ID_PROD
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${REQUEST_AGENCY_IDENTIFIER_ID_PROD_KEY_NAME}
+                      key: request-agency-identifier-id-prod
 
-                - name: REQUEST_AGENCY_IDENTIFIER_ID_TEST 
+                - name: REQUEST_AGENCY_IDENTIFIER_ID_TEST
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${REQUEST_AGENCY_IDENTIFIER_ID_TEST_KEY_NAME}
+                      key: request-agency-identifier-id-test
 
-                - name: REQUEST_AGENCY_IDENTIFIER_ID_DEV 
+                - name: REQUEST_AGENCY_IDENTIFIER_ID_DEV
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${REQUEST_AGENCY_IDENTIFIER_ID_DEV_KEY_NAME}
+                      key: request-agency-identifier-id-dev
 
-                - name: REQUEST_PART_ID_PROD 
+                - name: REQUEST_PART_ID_PROD
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${REQUEST_PART_ID_PROD_KEY_NAME}
+                      key: request-part-id-prod
 
-                - name: REQUEST_PART_ID_TEST 
+                - name: REQUEST_PART_ID_TEST
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${REQUEST_PART_ID_TEST_KEY_NAME}
+                      key: request-part-id-test
 
-                - name: REQUEST_PART_ID_DEV 
+                - name: REQUEST_PART_ID_DEV
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${REQUEST_PART_ID_DEV_KEY_NAME}
+                      key: request-part-id-dev
 
-                - name: PCSS_APPLICATION_CODE 
+                - name: PCSS_APPLICATION_CODE
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${PCSS_APPLICATION_CODE_KEY_NAME}
+                      key: pcss-application-code
                   
-                - name: SCV_APPLICATION_CODE 
+                - name: SCV_APPLICATION_CODE
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${SCV_APPLICATION_CODE_KEY_NAME}
+                      key: scv-application-code
 
-                - name: TARGET_URL 
+                - name: TARGET_URL
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${TARGET_URL_KEY_NAME}
+                      key: target-url
 
-                - name: COOKIE 
+                - name: COOKIE
                   valueFrom:
                     secretKeyRef:
                       name: ${NAME}${SUFFIX}
-                      key: ${COOKIE_KEY_NAME}
+                      key: cookie
 
                 - name: WEBHOOK_URL
                   valueFrom:
