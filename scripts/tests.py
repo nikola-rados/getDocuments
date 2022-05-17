@@ -80,7 +80,8 @@ def get_application_code(env, target) -> str:
 )
 def main(env, target, document_target):
     """Runs tests"""
-    load_dotenv()
+    # Do not need dotenv in Openshift
+    # load_dotenv()
     logging.basicConfig(
         format="%(asctime)s %(levelname)-8s %(message)s",
         level=logging.INFO,
