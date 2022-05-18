@@ -86,7 +86,10 @@ def main(env, target, document_target):
         format="%(asctime)s %(levelname)-8s %(message)s",
         level=logging.INFO,
         datefmt="%Y-%m-%d %H:%M:%S",
-        handlers=[logging.FileHandler("getDocuments.log"), logging.StreamHandler()],
+        handlers=[
+            #logging.FileHandler("getDocuments.log"), 
+            logging.StreamHandler()
+        ],
     )
     logger = logging.getLogger(__name__)
 
