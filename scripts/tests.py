@@ -5,11 +5,11 @@ import logging
 import click
 from dotenv import load_dotenv
 
-from scripts.models.document import Document
-from scripts.models.document_auth import DocumentAuth
-from scripts.models.document_request import DocumentRequest
-from scripts.models.threaded_test import ThreadedTest
-from scripts.models.constant import *
+from models.document import Document
+from models.document_auth import DocumentAuth
+from models.document_request import DocumentRequest
+from models.threaded_test import ThreadedTest
+from models.constant import *
 
 
 def get_doc_data(env) -> Dict:

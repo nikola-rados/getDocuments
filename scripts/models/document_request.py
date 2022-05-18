@@ -2,8 +2,8 @@ from logging import getLogger
 from typing import Dict
 import requests
 
-from scripts.models.document import Document
-from scripts.models.document_auth import DocumentAuth
+from models.document import Document
+from models.document_auth import DocumentAuth
 
 
 logger = getLogger(__name__)

@@ -5,7 +5,7 @@ import random
 import time
 from logging import getLogger
 
-from scripts.models.document_request import DocumentRequest
+from models.document_request import DocumentRequest
 
 
 logger = getLogger(__name__)
