@@ -22,7 +22,7 @@ objects:
       smtp-host: ${SMTP_SERVER_ADDRESS}
       
       jc-interface-username: ${JC_INTERFACE_USERNAME}
-      jc-interace-prod-password: ${JC_INTERFACE_PROD_PASSWORD}
+      jc-interface-prod-password: ${JC_INTERFACE_PROD_PASSWORD}
       jc-interface-test-password: ${JC_INTERFACE_TEST_PASSWORD}
       jc-interface-dev-password: ${JC_INTERFACE_DEV_PASSWORD}
 
