@@ -25,7 +25,7 @@ def get_doc_data(env) -> Dict:
     with open(path, "r") as f:
         data = json.load(f)
 
-    return data
+    return data["items"]
 
 
 def load_auth(env) -> DocumentAuth:
