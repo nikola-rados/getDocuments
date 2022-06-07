@@ -46,7 +46,7 @@ def load_target_url(target, env) -> str:
 
 def build_doc_list(doc_data) -> List[Document]:
     """Builds document list to be used in tests"""
-    docs = [];
+    docs = []
     for item in doc_data:
         partial_docs = [
             Document(item["file_id"], doc["id"], doc["size"])
