@@ -76,9 +76,20 @@ def get_application_code(env, target) -> str:
     help="Web service to target",
 )
 @click.option(
-    "-d", "--document-target", type=int, default=1, help="Index of doc to target"
+    "-d",
+    "--document-target",
+    type=int,
+    default=1,
+    help="Index of doc to target"
+    @ click.option(
+        "-c",
+        "--connections",
+        type=int,
+        default=3,
+        help="Number of concurrent connctions",
+    ),
 )
-def main(env, target, document_target):
+def main(env, target, document_target, connections):
     """Runs tests"""
     # Do not need dotenv in Openshift
     # load_dotenv()
@@ -87,7 +98,7 @@ def main(env, target, document_target):
         level=logging.INFO,
         datefmt="%Y-%m-%d %H:%M:%S",
         handlers=[
-            #logging.FileHandler("getDocuments.log"), 
+            # logging.FileHandler("getDocuments.log"),
             logging.StreamHandler()
         ],
     )
@@ -115,7 +126,7 @@ def main(env, target, document_target):
         application_code,
     )
 
-    test = ThreadedTest(document_request)
+    test = ThreadedTest(document_request=document_request, connections=connections)
     logger.debug("Set up complete")
 
     test.run_test()

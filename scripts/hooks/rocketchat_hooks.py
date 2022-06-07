@@ -11,42 +11,40 @@ import json
 from email_hooks import email_support
 
 
-LOG_LEVELS = {
-    '0': 'ERROR',
-    '1': 'WARNING',
-    '2': 'INFO'
-}
+LOG_LEVELS = {"0": "ERROR", "1": "WARNING", "2": "INFO"}
 
-log_level = environ.get('WEBHOOK_LEVEL', '0')
-if log_level > '2':
-    log_level = '2'
-elif log_level < '0':
-    log_level = '0'
+log_level = environ.get("WEBHOOK_LEVEL", "0")
+if log_level > "2":
+    log_level = "2"
+elif log_level < "0":
+    log_level = "0"
 
-webhook_url = environ.get('WEBHOOK_URL', '')
+webhook_url = environ.get("WEBHOOK_URL", "")
 
 
 def get_webhook_payload(level, message):
-    project_name = environ.get('PROJECT_NAME', "von-bc-registries-audit")
-    friendly_project_name = environ.get('FRIENDLY_PROJECT_NAME', "BC Registries Audit")
+    project_name = environ.get("PROJECT_NAME", "von-bc-registries-audit")
+    friendly_project_name = environ.get("FRIENDLY_PROJECT_NAME", "BC Registries Audit")
     payload = {
         "friendlyProjectName": friendly_project_name,
         "projectName": project_name,
         "statusCode": LOG_LEVELS[level],
-        "message": message
+        "message": message,
     }
     return payload
 
 
 async def _post_url(the_url, payload):
     async with aiohttp.ClientSession() as session:
-        headers = {'Content-Type': 'application/json'}
+        headers = {"Content-Type": "application/json"}
         async with session.post(the_url, json=payload, headers=headers) as resp:
             r_status = resp.status
             r_text = await resp.text()
             return (r_status, r_text)
 
+
 pool = concurrent.futures.ThreadPoolExecutor()
+
 
 def synchronous_post_url(webhook_url, payload):
     return pool.submit(asyncio.run, _post_url(webhook_url, payload)).result(timeout=30)
@@ -63,7 +61,13 @@ def post_msg_to_webhook(level, message):
             except Exception as e:
                 print(">>> NOT posted webhook, error:", str(e))
         else:
-            print(">>> NOT Posted webhook level", level, "message:\n", message, "\n(no webhook_url)\n")
+            print(
+                ">>> NOT Posted webhook level",
+                level,
+                "message:\n",
+                message,
+                "\n(no webhook_url)\n",
+            )
 
         try:
             success = email_support(payload)
@@ -75,16 +79,23 @@ def post_msg_to_webhook(level, message):
             print(">>> NOT sent email, error:", str(e))
 
     else:
-        print(">>> NOT Posted webhook level", level, "(", log_level, "), message:\n", message)
+        print(
+            ">>> NOT Posted webhook level",
+            level,
+            "(",
+            log_level,
+            "), message:\n",
+            message,
+        )
 
 
 def log_info(message):
-    post_msg_to_webhook('2', message)
+    post_msg_to_webhook("2", message)
 
 
 def log_warning(message):
-    post_msg_to_webhook('1', message)
+    post_msg_to_webhook("1", message)
 
 
 def log_error(message):
-    post_msg_to_webhook('0', message)
+    post_msg_to_webhook("0", message)
