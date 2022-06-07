@@ -86,13 +86,13 @@ def get_application_code(env, target) -> str:
     type=int,
     default=1,
     help="Index of doc to target"
-    @ click.option(
-        "-c",
-        "--connections",
-        type=int,
-        default=3,
-        help="Number of concurrent connctions",
-    ),
+)
+@click.option(
+    "-c",
+    "--connections",
+    type=int,
+    default=3,
+    help="Number of concurrent connctions",
 )
 def main(env, target, document_target, connections):
     """Runs tests"""
