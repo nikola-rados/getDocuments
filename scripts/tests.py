@@ -46,10 +46,15 @@ def load_target_url(target, env) -> str:
 
 def build_doc_list(doc_data) -> List[Document]:
     """Builds document list to be used in tests"""
-    return [
-        Document(doc_data["file_id"], doc["id"], doc["size"])
-        for doc in doc_data["document_info"]
-    ]
+    docs = [];
+    for item in doc_data:
+        partial_docs = [
+            Document(item["file_id"], doc["id"], doc["size"])
+            for doc in item["document_info"]
+        ]
+        docs.extend(partial_docs)
+
+    return docs
 
 
 def get_application_code(env, target) -> str:
