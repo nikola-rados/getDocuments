@@ -6,29 +6,14 @@ import time
 from logging import getLogger
 
 from models.document_request import DocumentRequest
+from models.result import Result
 
 
 logger = getLogger(__name__)
 
 
 class ThreadedTest:
-    """Runs tests concurrently
-
-    Details on known PROD docs:
-
-    | document ids | size (MB) |
-    +--------------+-----------+
-    |     22371932 |      1.57 |
-    |     22371946 |      3.01 |
-    |     22371960 |      5.88 |
-    |     22371970 |      11.6 |
-    |     22371992 |     17.38 |
-    |     22372020 |     22.29 |
-    |     22372055 |     35.39 |
-    |     22372091 |     58.07 |
-    |     22372143 |     97.16 |
-    |     22372260 |    155.94 |
-    """
+    """Runs tests concurrently"""
 
     def __init__(
         self,
@@ -39,6 +24,7 @@ class ThreadedTest:
         self.document_request = document_request
         self.connections = connections
         self.test_length_minutes = test_length_minutes
+        self.results = []
 
     def run_test(self):
         logger.info(
@@ -65,23 +51,28 @@ class ThreadedTest:
         sleep_time_seconds = random.randint(2, self.test_length_minutes * 60)
 
         logger.info(
-            f"Setup - Thread {index+1} - document id: {self.document_request.document.document_id}, document size: {self.document_request.document.size} MB - waiting {sleep_time_seconds} seconds before fetching."
+            f"Setup - Thread {index+1} - document id: {self.document_request.document.document_id}, document size: {self.document_request.document.document_size} MB - waiting {sleep_time_seconds} seconds before fetching."
         )
 
         time.sleep(sleep_time_seconds)
 
         logger.info(
-            f"Fetching - Thread {index} - document id: {self.document_request.document.document_id}, document size: {self.document_request.document.size} MB."
+            f"Fetching - Thread {index} - document id: {self.document_request.document.document_id}, document size: {self.document_request.document.document_size} MB."
         )
 
         response = self.document_request.request()
 
         if response:
-            logger.info(
+            elapsed = round(response.elapsed.total_seconds()*1000, 2)
+            response_size = round(len(response.content)/1024/1024,2)
+            result = Result(self.document_request.document, elapsed, response_size)
+            self.results.append(result)
+
+            logger.debug(
                 f"{index} - Response - {response.status_code} - {response.reason} - URL - {response.url}"
             )
             logger.info(
-                f"{index} - DocumentId: {self.document_request.document.document_id} - Response Size: {round(len(response.content)/1024/1024,2)} MB - Elapsed: {round(response.elapsed.total_seconds()*1000, 2)} ms"
+                f"{index} - DocumentId: {self.document_request.document.document_id} - Response Size: {response_size} MB - Elapsed: {elapsed} ms"
             )
 
         else:
