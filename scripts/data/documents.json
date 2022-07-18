@@ -1,0 +1,153 @@
+{
+    "DEV": [
+        {
+            "file_id": 3855,
+            "document_id": 10854,
+            "document_size": 0.00 
+        },
+        {
+            "file_id": 3855,
+            "document_id": 10752,
+            "document_size": 35.39
+        },
+        {
+            "file_id": 3855,
+            "document_id": 10815,
+            "document_size": 58.07
+        },
+        {
+            "file_id": 3855,
+            "document_id": 10950,
+            "document_size": 97.16
+        },
+        {
+            "file_id": 3855,
+            "document_id": 11057,
+            "document_size": 160.00 
+        }
+    ],
+    "TEST": [
+        {
+            "file_id": 3651,
+            "document_id": 11112,
+            "document_size": 107
+        },
+        {
+            "file_id": 3682,
+            "document_id": 121212,
+            "document_size": 17
+        },
+        {
+            "file_id": 3635,
+            "document_id": 2312321,
+            "document_size": 150
+        },
+        {
+            "file_id": 3605,
+            "document_id": 22121211,
+            "document_size": 150
+        }
+    ],
+    "PROD": [
+        {
+            "file_id": 3260208,
+            "document_id": 20220606,
+            "document_size": 10
+        },
+        {
+            "file_id": 3261802,
+            "document_id": 20220614,
+            "document_size": 10
+        },
+        {
+            "file_id": 2912785,
+            "document_id": 20180601,
+            "document_size": 10
+        },
+        {
+            "file_id": 2744943,
+            "document_id": 20161031,
+            "document_size": 10
+        },
+        {
+            "file_id": 3260218,
+            "document_id": 20220605,
+            "document_size": 10
+        },
+        {
+            "file_id": 3144737,
+            "document_id": 20201201,
+            "document_size": 10
+        },
+        {
+            "file_id": 2698264,
+            "document_id": 20160909,
+            "document_size": 10
+        },
+        {
+            "file_id": 3230298,
+            "document_id": 102101,
+            "document_size": 10
+        },
+        {
+            "file_id": 3261803,
+            "document_id": 20220615,
+            "document_size": 10
+        },
+        {
+            "file_id": 3261805,
+            "document_id": 20220616,
+            "document_size": 10
+        },
+        {
+            "file_id": 3206287,
+            "document_id": 22371932,
+            "document_size": 1.57
+        },
+        {
+            "file_id": 3206287,
+            "document_id": 22371946,
+            "document_size": 3.01
+        },
+        {
+            "file_id": 3206287,
+            "document_id": 22371960,
+            "document_size": 5.88
+        },
+        {
+            "file_id": 3206287,
+            "document_id": 22371970,
+            "document_size": 11.6
+        },
+        {
+            "file_id": 3206287,
+            "document_id": 22371992,
+            "document_size": 17.38
+        },
+        {
+            "file_id": 3206287,
+            "document_id": 22372020,
+            "document_size": 22.29
+        },
+        {
+            "file_id": 3206287,
+            "document_id": 22372055,
+            "document_size": 35.39
+        },
+        {
+            "file_id": 3206287,
+            "document_id": 22372091,
+            "document_size": 58.07
+        },
+        {
+            "file_id": 3206287,
+            "document_id": 22372143,
+            "documemt_size": 97.16
+        },
+        {
+            "file_id": 3206287,
+            "document_id": 22372260,
+            "document_size": 155.94
+        }
+    ]
+}
