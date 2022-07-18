@@ -2,6 +2,7 @@ import json
 import os
 from typing import Dict, List
 import logging
+from webbrowser import get
 import click
 from dotenv import load_dotenv
 
@@ -10,22 +11,15 @@ from models.document_auth import DocumentAuth
 from models.document_request import DocumentRequest
 from models.threaded_test import ThreadedTest
 from models.constant import *
+from models.run_result import RunResult
 
 
-def get_doc_data(env) -> Dict:
+def get_doc_data() -> List[Document]:
     """Returns document data from JSON files"""
-    path = ""
-    if env == PROD:
-        path = PROD_DOC_DATA_PATH
-    elif env == TEST:
-        path = TEST_DOC_DATA_PATH
-    elif env == DEV:
-        path = DEV_DOC_DATA_PATH
-
-    with open(path, "r") as f:
+    with open(DOC_DATA_PATH, "r") as f:
         data = json.load(f)
 
-    return data["items"]
+    return data
 
 
 def load_auth(env) -> DocumentAuth:
@@ -35,26 +29,21 @@ def load_auth(env) -> DocumentAuth:
     return DocumentAuth(user_name, password)
 
 
-def load_target_url(target, env) -> str:
-    """Returns target URL from env"""
-    if target == WSGW:
+def load_target_url(web_service, env) -> str:
+    """Returns web service URL from env"""
+    if web_service == WSGW:
         return os.getenv(f"WSGW_URL_{env}")
 
-    elif target == CATS:
+    elif web_service == CATS:
         return os.getenv(f"CATS_URL_{env}")
 
 
-def build_doc_list(doc_data) -> List[Document]:
+def build_doc_list(doc_data: Dict, env: str, document_ids: List[str]) -> List[Document]:
     """Builds document list to be used in tests"""
-    docs = []
-    for item in doc_data:
-        partial_docs = [
-            Document(item["file_id"], doc["id"], doc["size"])
-            for doc in item["document_info"]
-        ]
-        docs.extend(partial_docs)
-
-    return docs
+    return [
+        Document(doc_datum[FILE_ID], str(doc_datum[DOCUMENT_ID]), doc_datum[DOCUMENT_SIZE])
+        for doc_datum in doc_data[env] if str(doc_datum[DOCUMENT_ID]) in document_ids
+    ]
 
 
 def get_application_code(env, target) -> str:
@@ -65,39 +54,54 @@ def get_application_code(env, target) -> str:
         return os.getenv("PCSS_APPLICATION_CODE")
 
 
+def get_document_options() -> List[str]:
+    return [
+        str(document[DOCUMENT_ID]) for env in [DEV, TEST, PROD] 
+        for document in get_doc_data()[env]
+    ]
+
+
 @click.command()
 @click.option(
     "-e",
     "--env",
-    type=click.Choice(["DEV", "TEST", "PROD"]),
-    default="DEV",
+    type=click.Choice([DEV, TEST, PROD]),
+    default=DEV,
     help="Target environment",
 )
 @click.option(
-    "-t",
-    "--target",
-    type=click.Choice(["wsgw", "cats"]),
-    default="wsgw",
+    "-w",
+    "--web-service",
+    type=click.Choice([WSGW, CATS]),
+    default=WSGW,
     help="Web service to target",
 )
 @click.option(
     "-d",
-    "--document-target",
-    type=int,
-    default=1,
-    help="Index of doc to target"
+    "--document-ids",
+    type=click.Choice(get_document_options()),
+    multiple=True,
+    help="Document ids for testing"
 )
 @click.option(
     "-c",
     "--connections",
     type=int,
-    default=3,
+    default=5,
     help="Number of concurrent connctions",
 )
-def main(env, target, document_target, connections):
+@click.option(
+    "-r",
+    "--runs",
+    type=int,
+    default=1,
+    help="Number of runs to perform"
+)
+def main(env, web_service, document_ids, connections, runs):
     """Runs tests"""
     # Do not need dotenv in Openshift
     # load_dotenv()
+
     logging.basicConfig(
         format="%(asctime)s %(levelname)-8s %(message)s",
         level=logging.INFO,
@@ -108,33 +112,43 @@ def main(env, target, document_target, connections):
         ],
     )
     logger = logging.getLogger(__name__)
-
     logger.info("=========================================")
 
-    logger.debug("Setting up testing platform")
-    documents = build_doc_list(get_doc_data(env))
-    document = documents[document_target]
+    test_docs = build_doc_list(get_doc_data(), env, document_ids)
 
-    target_url = load_target_url(target, env)
+    target_url = load_target_url(web_service, env)
     auth = load_auth(env)
 
     request_agency_identifier_id = os.getenv(f"REQUEST_AGENCY_IDENTIFIER_ID_{env}")
     request_part_id = os.getenv(f"REQUEST_PART_ID_{env}")
-    application_code = get_application_code(env, target)
+    application_code = get_application_code(env, web_service)
 
-    document_request = DocumentRequest(
-        document,
-        target_url,
-        auth,
-        request_agency_identifier_id,
-        request_part_id,
-        application_code,
-    )
+    doc_requests = [
+        DocumentRequest(
+            test_doc,
+            target_url,
+            auth,
+            request_agency_identifier_id,
+            request_part_id,
+            application_code,
+        )
+        for test_doc in test_docs
+    ]
+    
+    threaded_tests = [
+        ThreadedTest(
+            document_request=doc_request,
+            connections=connections
+        )
+        for doc_request in doc_requests
+    ]
 
-    test = ThreadedTest(document_request=document_request, connections=connections)
-    logger.debug("Set up complete")
-
-    test.run_test()
+    for threaded_test in threaded_tests:
+        results = RunResult()
+        for n in range(runs):
+            threaded_test.run_test()
+            results.add_multiple(threaded_test.results)
+        results.print()
 
 
 if __name__ == "__main__":
